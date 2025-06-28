@@ -5,7 +5,6 @@ import logging
 import time
 from extract_videos import get_video_info, extract_metadata
 
-
 OUTPUT_DIR = "audio_output"
 LOGS_DIR = "logs"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -14,6 +13,11 @@ os.environ["SSL_CERT_FILE"] = certifi.where()
 
 logger = logging.getLogger("Serial Processing")
 logging.basicConfig(filename=f"{LOGS_DIR}/logs", encoding='utf-8', level=logging.DEBUG)
+
+def log_and_print(message: str, level: str = "info"):
+    """Log message and print to console simultaneously."""
+    print(message)
+    getattr(logger, level.lower())(message)
 
 def save_metadata(metadata: dict, title: str) -> str:
     """Save metadata as a JSON file and return the path."""
@@ -25,40 +29,29 @@ def save_metadata(metadata: dict, title: str) -> str:
 
 def download_youtube_audio_with_metadata(url: str):
     """Main function to download audio and save metadata."""
-    print(f"\n🎵 Downloading: {url}")
-    logger.info(f"Downloading: {url}")
+    log_and_print(f"🎵 Downloading: {url}", "info")
     successful = 0
     failed = 0
     try:
         info = get_video_info(url)
         metadata = extract_metadata(info)
         json_path = save_metadata(metadata, metadata["title"])
-        print(f"✅ Done: {metadata['title']}\n📄 Metadata saved: {json_path}")
-        logger.info(f"Downloaded: {metadata['title']} - Metadata saved to {json_path}")
+        log_and_print(f"✅ Done: {metadata['title']}\n📄 Metadata saved: {json_path}", "info")
         successful += 1
     except Exception as e:
-        print(f"❌ Failed to download: {url}\n   Error: {e}")
-        logger.error(f"Failed to download {url}: {e}")
+        log_and_print(f"❌ Failed to download: {url}\n   Error: {e}", "error")
         failed += 1
-    return successful, failed
-        
+    return successful, failed  
+
 def download_serial(urls: list):
     """Download videos one by one."""
+    log_and_print("Starting serial downloads...", "info")
     start_time = time.time()
+    total_successful = 0
+    total_failed = 0
     for url in urls:
         successful, failed = download_youtube_audio_with_metadata(url)
-        end_time = time.time()
-    print(f"\n🎯 Download Summary:")
-    print(f"   ✅ Successful: {successful}")
-    print(f"   ❌ Failed: {failed}")
-    print(f"   ⏱⌛ Total time: {end_time - start_time:.2f} seconds")
-    logger.info(f"Time taken to download {len(urls)} videos: {end_time - start_time:.2f} seconds.")
-
-# if __name__ == "__main__":
-#     youtube_urls = load_txt("video_urls.txt")
-#     start_time = time.time()
-#     for url in youtube_urls:
-#         download_youtube_audio_with_metadata(url)
-#         end_time = time.time()
-#     print(f"⌛ Time taken: {end_time - start_time:.2f} seconds\n")
-#     logger.info(f"Time taken to download {len(youtube_urls)} videos: {end_time - start_time:.2f} seconds.")
+        total_successful += successful
+        total_failed += failed
+    end_time = time.time()
+    log_and_print(f"\n🎯 Download Summary:\n   ✅ Successful: {total_successful}\n   ❌ Failed: {total_failed}\n   ⌛ Time taken to download {len(urls)}: {end_time - start_time:.2f} seconds", "info")
