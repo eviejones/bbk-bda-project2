@@ -69,5 +69,4 @@ def extract_metadata(info: dict) -> dict:
 
         # Derived fields
         "year_uploaded": int(upload_date[:4]) if upload_date else None,
-        "tag_count": len(tags),
-    }
+        "tag_count": len(tags)}
