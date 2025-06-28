@@ -3,19 +3,34 @@ import certifi
 import os
 import json
 import logging
-import threading
-import time
-from concurrent.futures import ThreadPoolExecutor
-from read_videos import load_txt
 
 OUTPUT_DIR = "audio_output"
 LOGS_DIR = "logs"
+MAX_WORKERS = 5
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(LOGS_DIR, exist_ok=True)
 os.environ["SSL_CERT_FILE"] = certifi.where()
 
 logger = logging.getLogger("Extract Videos")
 logging.basicConfig(filename=f"{LOGS_DIR}/logs", encoding='utf-8', level=logging.DEBUG)
+
+def load_txt(filename: str) -> list:
+    """
+    Loads a txt file and returns its content as a list of strings.
+
+    Args:
+        filename (str): The path to the txt file.
+
+    Returns:
+        list: A list with each line of the txt file as an element.
+
+    Example:
+        load_text("video_urls.txt")
+    """
+    with open(filename, mode="r", newline="") as file:
+        data = file.readlines()
+    data = [line.strip() for line in data if line.strip()]  # Remove empty
+    return data
 
 def get_video_info(url: str, download: bool = True) -> dict:
     """Extract video info and optionally download the audio without warnings."""
@@ -58,7 +73,6 @@ def extract_metadata(info: dict) -> dict:
         "tag_count": len(tags),
     }
 
-
 def save_metadata_to_file(metadata: dict, title: str) -> str:
     """Save metadata as a JSON file and return the path."""
     safe_title = "".join(c for c in title if c.isalnum() or c in (" ", "_", "-")).rstrip()
@@ -82,8 +96,9 @@ def download_youtube_audio_with_metadata(url: str):
         logger.error(f"Failed to download {url}: {e}")
         
 
-if __name__ == "__main__":
-    youtube_urls = load_txt("video_urls.txt")
+# if __name__ == "__main__":
+#     youtube_urls = load_txt("video_urls.txt")
 
-    for url in youtube_urls:
-        download_youtube_audio_with_metadata(url)
+#     # for url in youtube_urls:
+#     #     download_youtube_audio_with_metadata(url)
+#     get_info_parallel(youtube_urls, download=False)
