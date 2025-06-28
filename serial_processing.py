@@ -5,6 +5,8 @@ import logging
 import time
 from extract_videos import get_video_info, extract_metadata
 
+#TODO add in retry logic for failed downloads
+
 OUTPUT_DIR = "audio_output"
 LOGS_DIR = "logs"
 os.makedirs(OUTPUT_DIR, exist_ok=True)

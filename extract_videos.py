@@ -1,7 +1,6 @@
 import yt_dlp
 import certifi
 import os
-import json
 import logging
 
 OUTPUT_DIR = "audio_output"
@@ -72,33 +71,3 @@ def extract_metadata(info: dict) -> dict:
         "year_uploaded": int(upload_date[:4]) if upload_date else None,
         "tag_count": len(tags),
     }
-
-def save_metadata_to_file(metadata: dict, title: str) -> str:
-    """Save metadata as a JSON file and return the path."""
-    safe_title = "".join(c for c in title if c.isalnum() or c in (" ", "_", "-")).rstrip()
-    file_path = os.path.join(OUTPUT_DIR, f"{safe_title}.json")
-    with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(metadata, f, indent=2, ensure_ascii=False)
-    return file_path
-
-def download_youtube_audio_with_metadata(url: str):
-    """Main function to download audio and save metadata."""
-    print(f"\n🎵 Downloading: {url}")
-    logger.info(f"Downloading: {url}")
-    try:
-        info = get_video_info(url)
-        metadata = extract_metadata(info)
-        json_path = save_metadata_to_file(metadata, metadata["title"])
-        print(f"✅ Done: {metadata['title']}\n📄 Metadata: {json_path}")
-        logger.info(f"Downloaded: {metadata['title']} - Metadata saved to {json_path}")
-    except Exception as e:
-        print(f"❌ Failed to download: {url}\n   Error: {e}")
-        logger.error(f"Failed to download {url}: {e}")
-        
-
-# if __name__ == "__main__":
-#     youtube_urls = load_txt("video_urls.txt")
-
-#     # for url in youtube_urls:
-#     #     download_youtube_audio_with_metadata(url)
-#     get_info_parallel(youtube_urls, download=False)
