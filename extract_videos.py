@@ -1,17 +1,12 @@
 import yt_dlp
 import certifi
 import os
-import logging
 
+#TODO check null things are handled properly, suspicuous about artist
+#TODO validate txt reading function
 OUTPUT_DIR = "audio_output"
-LOGS_DIR = "logs"
-MAX_WORKERS = 5
 os.makedirs(OUTPUT_DIR, exist_ok=True)
-os.makedirs(LOGS_DIR, exist_ok=True)
 os.environ["SSL_CERT_FILE"] = certifi.where()
-
-logger = logging.getLogger("Extract Videos")
-logging.basicConfig(filename=f"{LOGS_DIR}/logs", encoding='utf-8', level=logging.DEBUG)
 
 def load_txt(filename: str) -> list:
     """
@@ -28,7 +23,7 @@ def load_txt(filename: str) -> list:
     """
     with open(filename, mode="r", newline="") as file:
         data = file.readlines()
-    data = [line.strip() for line in data if line.strip()]  # Remove empty
+    data = [line.strip() for line in data if line.strip()]
     return data
 
 def get_video_info(url: str, download: bool = True) -> dict:
