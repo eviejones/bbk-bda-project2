@@ -29,21 +29,59 @@ def save_metadata(metadata: dict, title: str) -> str:
         json.dump(metadata, f, indent=2, ensure_ascii=False)
     return file_path
 
-def download_youtube_audio_with_metadata(url: str):
-    """Main function to download audio and save metadata."""
-    log_and_print(f"🎵 Downloading: {url}", "info")
+# def download_youtube_audio_with_metadata(url: str):
+#     """Main function to download audio and save metadata."""
+#     log_and_print(f"🎵 Downloading: {url}", "info")
+#     successful = 0
+#     failed = 0
+#     try:
+#         info = get_video_info(url)
+#         metadata = extract_metadata(info)
+#         json_path = save_metadata(metadata, metadata["title"])
+#         log_and_print(f"✅ Done: {metadata['title']}\n📄 Metadata saved: {json_path}", "info")
+#         successful += 1
+#     except Exception as e:
+#         log_and_print(f"❌ Failed to download: {url}\n   Error: {e}", "error")
+#         failed += 1
+#     return successful, failed  
+def download_youtube_audio_with_metadata(url: str, max_retries: int = 3, initial_delay: int = 5):
+    """
+    Main function to download audio and save metadata with retry logic.
+
+    Args:
+        url (str): The URL of the YouTube video to download.
+        max_retries (int): The maximum number of times to retry a failed download.
+        initial_delay (int): The initial delay in seconds before the first retry.
+
+    Returns:
+        tuple: A tuple containing (successful_count, failed_count) for this attempt.
+    """
+    log_and_print(f"🎵 Attempting to download: {url}", "info")
     successful = 0
     failed = 0
-    try:
-        info = get_video_info(url)
-        metadata = extract_metadata(info)
-        json_path = save_metadata(metadata, metadata["title"])
-        log_and_print(f"✅ Done: {metadata['title']}\n📄 Metadata saved: {json_path}", "info")
-        successful += 1
-    except Exception as e:
-        log_and_print(f"❌ Failed to download: {url}\n   Error: {e}", "error")
-        failed += 1
-    return successful, failed  
+    retries = 0
+
+    while retries <= max_retries:
+        try:
+            info = get_video_info(url)
+            metadata = extract_metadata(info)
+            json_path = save_metadata(metadata, metadata["title"])
+            log_and_print(f"✅ Done: {metadata['title']}\n📄 Metadata saved: {json_path}", "info")
+            successful += 1
+            return successful, failed # Success, exit the loop
+        except Exception as e:
+            log_and_print(f"❌ Failed to download: {url}\n   Error: {e}", "error")
+            retries += 1
+            if retries <= max_retries:
+                delay = initial_delay * (2 ** (retries - 1)) # Exponential backoff
+                log_and_print(f"Retrying download for {url} in {delay} seconds (Attempt {retries}/{max_retries})...", "warning")
+                time.sleep(delay)
+            else:
+                log_and_print(f"🛑 Max retries ({max_retries}) exceeded for {url}. Giving up.", "error")
+                failed += 1
+                return successful, failed # All retries failed
+
+    return successful, failed # Should not be reached
 
 def download_serial(urls: list):
     """Download videos one by one."""
