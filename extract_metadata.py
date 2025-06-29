@@ -17,20 +17,33 @@ COLUMNS = {
     "view_count": int,
     "like_count": int,
     "tag_count": int,
-    "year_uploaded": pd.Timestamp,
+    "year_uploaded": str,
+    "legible_title": str,
 }
+
+def shorten_title(title: str) -> str:
+    """Shorten the title to a maximum of 5 words for visualisation."""
+    if pd.isna(title): # Handle potential NaN values if input isn't a string
+        return title
+    words = title.split()
+    if len(words) > 5:
+        return ' '.join(words[:5])
+    return title # Return the original title if it's 5 words or less
 
 def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     df = df.loc[:, df.columns.intersection(COLUMNS.keys())]
     # Convert columns to expected types
+    df["year_uploaded"] = df['upload_date'].str[0:4]
     df["upload_date"] = pd.to_datetime(df["upload_date"], format="%Y%m%d", errors="coerce")
-    df["year_uploaded"] = pd.to_datetime(df["upload_date"].dt.year, format='%Y', errors="coerce")
     
     df = df.dropna(subset=['id', 'title'])  # Remove rows without id or title 
     df['view_count'] = df['view_count'].fillna(0)  # Fill missing counts with 0
     df['like_count'] = df['like_count'].fillna(0)
     df['tag_count'] = df['tag_count'].fillna(0)
     df['duration_seconds'] = df['duration_seconds'].fillna(0)
+    split_titles = df['title'].str.split(r'[-|:]', n=1, expand=True) # This doesn't work for all but is a bit easier to read
+    df['legible_title'] = split_titles[0].str.strip()
+    df['legible_title'] = df['legible_title'].apply(shorten_title)  # Shorten titles for visualisation
     df = df.drop_duplicates(subset=['id'], keep='first') # Remove duplicates based on 'id'
     return df
 
