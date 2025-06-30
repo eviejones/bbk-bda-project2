@@ -23,6 +23,7 @@ Output files
 `audio_output` contains all the downloaded files and the downloaded json metadata. 
 `metadata_output` contains all of the metadata comined into a csv. 
 `analysis` contains the analysis for part 3. 
+`processing/config.py` contains all the constants used across files. It contains all the filepaths used and the retry logic.
 
 ### The process
 The `video_urls.txt` file contains 10 YouTube urls, each on a separate line. Inside `main.py` this file is read using the `load_txt` function which reads each line as a new item in the list, with whitespace removed. 
@@ -56,6 +57,10 @@ In serial processing, each video download had to complete before the next one be
 
 Interestingly increasing the max_workers to 10, only increases the speed to 34.74 seconds. There is a danger with increasing the number of max_workers as it can overload the internet bandwidth and would slow down the processing. Though not fully tested, there is an indication that increasing the max_workers has diminishing returns. 
 
+As the serial processing deals with one video at a time, this means the time complexity is the sum of the total time taken to process a video. Additionally only one video's data is held in memory at a time. The space complexity is therefore less than when using the threadpool. The parallel processing script uses more memory and videos may be held in memory concurrently. For both, the amount of memory stored in the outputs is proportional to the number of videos processed. 
+
+With parallel processing, execution time is reduced but extra complexity is added in relation to resource management and error handling. 
+
 # Part 2 
 
 ### Combining metadata
@@ -69,4 +74,9 @@ The `combine_metadata.py` has a list of required columns and their expected data
 This dataframe is then saved to csv. 
 
 # Part 3
+
+
+
+# Reflection
+
 

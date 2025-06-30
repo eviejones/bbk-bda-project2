@@ -8,7 +8,6 @@ from .config import METADATA_OUTPUT_DIR, LOGS_DIR
 os.makedirs(METADATA_OUTPUT_DIR, exist_ok=True)
 os.makedirs(LOGS_DIR, exist_ok=True)
 
-
 logger = logging.getLogger("Data Processing")
 logging.basicConfig(filename=f"{LOGS_DIR}/logs", encoding="utf-8", level=logging.DEBUG)
 
