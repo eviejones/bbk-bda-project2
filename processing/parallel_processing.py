@@ -20,14 +20,27 @@ logger = logging.getLogger("Parallel Processing")
 logging.basicConfig(filename=f"{LOGS_DIR}/logs", encoding='utf-8', level=logging.DEBUG)
 output_lock = Lock() # For thread-safe printing and logging
 
-def log_and_print(message: str, level: str = "info"):
-    """Thread-safe function to log message and print to console simultaneously."""
+def log_and_print(message: str, level: str = "info") -> None:
+    """Thread-safe function to log message and print to console simultaneously.
+    
+    Args:
+        message (str): The message to log and print.
+        level (str): The logging level (default is "info").
+    """
     with output_lock:
         print(message)
         getattr(logger, level.lower())(message)
 
 def save_metadata_parallel(metadata: dict, title: str) -> str:
-    """Save metadata as a JSON file and return the path."""
+    """Save metadata as a JSON file and return the path.
+    
+    Args:
+        metadata (dict): The metadata to save.
+        title (str): The title to use for the filename.
+    
+    Returns:
+        str: The path to the saved JSON file.
+    """
     safe_title = "".join(c for c in title if c.isalnum() or c in (" ", "_", "-")).rstrip()
     file_path = os.path.join(OUTPUT_DIR, f"{safe_title}.json")
     
@@ -37,8 +50,15 @@ def save_metadata_parallel(metadata: dict, title: str) -> str:
             json.dump(metadata, f, indent=2, ensure_ascii=False)
     return file_path
 
-def download_youtube_audio_with_metadata_parallel(url: str):
-    """Main function to download audio and save metadata - now thread-safe."""
+def download_youtube_audio_with_metadata_parallel(url: str) -> dict:
+    """Main function to download audio and save metadata - now thread-safe.
+    
+    Args:
+        url (str): The URL of the YouTube video to download.
+    
+    Returns:
+        dict: A dictionary containing the status, URL, and title of the downloaded video.
+    """
     thread_id = threading.current_thread().name
     log_and_print(f"🎵 [{thread_id}] Downloading: {url}", "info")
 
@@ -53,9 +73,14 @@ def download_youtube_audio_with_metadata_parallel(url: str):
         log_and_print(f"❌ [{thread_id}] Failed to download: {url}\n   Error: {e}", "error")
         return {"status": "error", "url": url, "error": str(e)}
 
-def download_parallel(urls: list[str], max_workers: int =5):
-    """Download videos using ThreadPoolExecutor."""
-    log_and_print(f"Starting parallel downloads with {max_workers} threads...", "info")
+def download_parallel(urls: list[str], max_workers: int =5) -> None:
+    """Download videos using ThreadPoolExecutor.
+    
+    Args:
+        urls (list[str]): List of YouTube video URLs to download.
+        max_workers (int): Maximum number of threads to use for downloading (default is 5).
+    """
+    log_and_print(f"=== Starting parallel downloads with {max_workers} threads ===", "info")
     results = []
     start_time = time.time()
     
