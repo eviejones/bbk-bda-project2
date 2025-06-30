@@ -1,66 +1,4 @@
 INFO:Serial Processing:=== Starting serial downloads ===
-INFO:Serial Processing:🎵 Attempting to download: http://www.youtube.com/watch?v=leVupS98zOM
-INFO:Serial Processing:✅ Done: My Best Friend is Missing!
-📄 Metadata saved: audio_output\My Best Friend is Missing.json
-INFO:Serial Processing:🎵 Attempting to download: http://www.youtube.com/watch?v=rQtq27Ip6pc
-INFO:Serial Processing:✅ Done: Animals Can Be So Damn Dramatic 😂 Funniest Animal Video 2025
-📄 Metadata saved: audio_output\Animals Can Be So Damn Dramatic  Funniest Animal Video 2025.json
-INFO:Serial Processing:🎵 Attempting to download: http://www.youtube.com/watch?v=eR9XzftlURA
-INFO:Serial Processing:✅ Done: Best Chocolate Art Wins $1,000!
-📄 Metadata saved: audio_output\Best Chocolate Art Wins 1000.json
-INFO:Serial Processing:🎵 Attempting to download: http://www.youtube.com/watch?v=gyhXMlxdL4A
-INFO:Serial Processing:✅ Done: O Antava Oo Antava#Kritikachannel#Shorts funny video
-📄 Metadata saved: audio_output\O Antava Oo AntavaKritikachannelShorts funny video.json
-INFO:Serial Processing:🎵 Attempting to download: http://www.youtube.com/watch?v=O-3g3YKGZ3Q
-INFO:Serial Processing:✅ Done: CRAZY VIDEO OF TORNADOES IN SOUTH DAKOTA - JUNE 28, 2025
-📄 Metadata saved: audio_output\CRAZY VIDEO OF TORNADOES IN SOUTH DAKOTA - JUNE 28 2025.json
-INFO:Serial Processing:🎵 Attempting to download: http://www.youtube.com/watch?v=T_NKi5KHUdI
-INFO:Serial Processing:✅ Done: Party Tunes – Brainrot Rap [Official Video]
-📄 Metadata saved: audio_output\Party Tunes  Brainrot Rap Official Video.json
-INFO:Serial Processing:🎵 Attempting to download: http://www.youtube.com/watch?v=M4TXO4kQwSQ
-INFO:Serial Processing:✅ Done: Can We Teach our Moms to Spot Fake Ai Videos?
-📄 Metadata saved: audio_output\Can We Teach our Moms to Spot Fake Ai Videos.json
-INFO:Serial Processing:
-🎯 Download Summary:
-   ✅ Successful: 7
-   ❌ Failed: 0
-   ⌛ Time taken to download 7: 41.45 seconds
-INFO:Parallel Processing:=== Starting parallel downloads with 5 threads ===
-INFO:Parallel Processing:🎵 [Downloader Thread_0] Downloading: http://www.youtube.com/watch?v=leVupS98zOM
-INFO:Parallel Processing:🎵 [Downloader Thread_1] Downloading: http://www.youtube.com/watch?v=rQtq27Ip6pc
-INFO:Parallel Processing:🎵 [Downloader Thread_2] Downloading: http://www.youtube.com/watch?v=eR9XzftlURA
-INFO:Parallel Processing:🎵 [Downloader Thread_3] Downloading: http://www.youtube.com/watch?v=gyhXMlxdL4A
-INFO:Parallel Processing:🎵 [Downloader Thread_4] Downloading: http://www.youtube.com/watch?v=O-3g3YKGZ3Q
-INFO:Parallel Processing:✅ [Downloader Thread_1] Done: Animals Can Be So Damn Dramatic 😂 Funniest Animal Video 2025
-📄 Metadata saved: audio_output\Animals Can Be So Damn Dramatic  Funniest Animal Video 2025.json
-INFO:Parallel Processing:🎵 [Downloader Thread_1] Downloading: http://www.youtube.com/watch?v=T_NKi5KHUdI
-INFO:Parallel Processing:✅ [Downloader Thread_2] Done: Best Chocolate Art Wins $1,000!
-📄 Metadata saved: audio_output\Best Chocolate Art Wins 1000.json
-INFO:Parallel Processing:🎵 [Downloader Thread_2] Downloading: http://www.youtube.com/watch?v=M4TXO4kQwSQ
-INFO:Parallel Processing:✅ [Downloader Thread_3] Done: O Antava Oo Antava#Kritikachannel#Shorts funny video
-📄 Metadata saved: audio_output\O Antava Oo AntavaKritikachannelShorts funny video.json
-INFO:Parallel Processing:✅ [Downloader Thread_4] Done: CRAZY VIDEO OF TORNADOES IN SOUTH DAKOTA - JUNE 28, 2025
-📄 Metadata saved: audio_output\CRAZY VIDEO OF TORNADOES IN SOUTH DAKOTA - JUNE 28 2025.json
-INFO:Parallel Processing:✅ [Downloader Thread_0] Done: My Best Friend is Missing!
-📄 Metadata saved: audio_output\My Best Friend is Missing.json
-INFO:Parallel Processing:✅ [Downloader Thread_1] Done: Party Tunes – Brainrot Rap [Official Video]
-📄 Metadata saved: audio_output\Party Tunes  Brainrot Rap Official Video.json
-INFO:Parallel Processing:✅ [Downloader Thread_2] Done: Can We Teach our Moms to Spot Fake Ai Videos?
-📄 Metadata saved: audio_output\Can We Teach our Moms to Spot Fake Ai Videos.json
-INFO:Parallel Processing:
-🎯 Download Summary:
-   ✅ Successful: 7
-   ❌ Failed: 0
-   ⌛ Time taken to download 7: 27.19 seconds
-INFO:Data Processing:🧹 Cleaning DataFrame...
-INFO:Data Processing:🧹 Converted 'upload_date' to pandas Timestamp.
-INFO:Data Processing:🧹 Starting DataFrame validation...
-INFO:Data Processing:✅ Validation complete.
-INFO:Data Processing:🧹 Dropping rows with missing 'id' or 'title' and filling missing counts...
-INFO:Data Processing:🧹 Filling missing counts with 0...
-INFO:Data Processing:✅ DataFrame validation passed
-INFO:Data Processing:✅ Metadata extracted and saved to metadata_output/combined_metadata.csv
-INFO:Serial Processing:=== Starting serial downloads ===
 INFO:Serial Processing:🎵 Attempting to download: https://www.youtube.com/watch?v=J7GY1Xg6X20
 INFO:Serial Processing:✅ Done: Charlie Chaplin - Final Speech from The Great Dictator
 📄 Metadata saved: audio_output\Charlie Chaplin - Final Speech from The Great Dictator.json
@@ -95,43 +33,43 @@ INFO:Serial Processing:
 🎯 Download Summary:
    ✅ Successful: 10
    ❌ Failed: 0
-   ⌛ Time taken to download 10: 59.31 seconds
+   ⌛ Time taken to download 10: 74.11 seconds
 INFO:Parallel Processing:=== Starting parallel downloads with 5 threads ===
 INFO:Parallel Processing:🎵 [Downloader Thread_0] Downloading: https://www.youtube.com/watch?v=J7GY1Xg6X20
 INFO:Parallel Processing:🎵 [Downloader Thread_1] Downloading: https://www.youtube.com/watch?v=eDwi-8n054s
-INFO:Parallel Processing:🎵 [Downloader Thread_2] Downloading: https://www.youtube.com/watch?v=EHJy9mLTUeY
 INFO:Parallel Processing:🎵 [Downloader Thread_3] Downloading: https://www.youtube.com/watch?v=jvuwKc0ep8k
+INFO:Parallel Processing:🎵 [Downloader Thread_2] Downloading: https://www.youtube.com/watch?v=EHJy9mLTUeY
 INFO:Parallel Processing:🎵 [Downloader Thread_4] Downloading: https://www.youtube.com/watch?v=DubtPdXXjew
-INFO:Parallel Processing:✅ [Downloader Thread_1] Done: Fleetwood Mac - Silver Springs (Live) (Official Video) [HD]
-📄 Metadata saved: audio_output\Fleetwood Mac - Silver Springs Live Official Video HD.json
-INFO:Parallel Processing:🎵 [Downloader Thread_1] Downloading: https://www.youtube.com/watch?v=NaaSpRMBHjg
+INFO:Parallel Processing:✅ [Downloader Thread_3] Done: Saturday Night Live Duos - SNL
+📄 Metadata saved: audio_output\Saturday Night Live Duos - SNL.json
+INFO:Parallel Processing:🎵 [Downloader Thread_3] Downloading: https://www.youtube.com/watch?v=NaaSpRMBHjg
 INFO:Parallel Processing:✅ [Downloader Thread_2] Done: Trump swearing video: Says Iran, Israel ‘don’t know what the f—’ they’re doing
 📄 Metadata saved: audio_output\Trump swearing video Says Iran Israel dont know what the f theyre doing.json
 INFO:Parallel Processing:🎵 [Downloader Thread_2] Downloading: https://www.youtube.com/watch?v=phSkbBZelCw
+INFO:Parallel Processing:✅ [Downloader Thread_1] Done: Fleetwood Mac - Silver Springs (Live) (Official Video) [HD]
+📄 Metadata saved: audio_output\Fleetwood Mac - Silver Springs Live Official Video HD.json
 INFO:Parallel Processing:✅ [Downloader Thread_0] Done: Charlie Chaplin - Final Speech from The Great Dictator
 📄 Metadata saved: audio_output\Charlie Chaplin - Final Speech from The Great Dictator.json
-INFO:Parallel Processing:🎵 [Downloader Thread_0] Downloading: https://www.youtube.com/watch?v=GkRNgwlA5NE
+INFO:Parallel Processing:🎵 [Downloader Thread_1] Downloading: https://www.youtube.com/watch?v=GkRNgwlA5NE
+INFO:Parallel Processing:🎵 [Downloader Thread_0] Downloading: https://www.youtube.com/watch?v=7wmSWsmyGpw
 INFO:Parallel Processing:✅ [Downloader Thread_4] Done: Chappell Roan - The Giver (Official Lyric Video)
 📄 Metadata saved: audio_output\Chappell Roan - The Giver Official Lyric Video.json
-INFO:Parallel Processing:🎵 [Downloader Thread_4] Downloading: https://www.youtube.com/watch?v=7wmSWsmyGpw
-INFO:Parallel Processing:✅ [Downloader Thread_3] Done: Saturday Night Live Duos - SNL
-📄 Metadata saved: audio_output\Saturday Night Live Duos - SNL.json
-INFO:Parallel Processing:🎵 [Downloader Thread_3] Downloading: https://www.youtube.com/watch?v=GR3Liudev18&list=RDGR3Liudev18&start_radio=1
-INFO:Parallel Processing:✅ [Downloader Thread_1] Done: One of The Greatest Speeches Ever by President Obama | Best Eye Opening Speech
+INFO:Parallel Processing:🎵 [Downloader Thread_4] Downloading: https://www.youtube.com/watch?v=GR3Liudev18&list=RDGR3Liudev18&start_radio=1
+INFO:Parallel Processing:✅ [Downloader Thread_3] Done: One of The Greatest Speeches Ever by President Obama | Best Eye Opening Speech
 📄 Metadata saved: audio_output\One of The Greatest Speeches Ever by President Obama  Best Eye Opening Speech.json
-INFO:Parallel Processing:✅ [Downloader Thread_4] Done: Oprah Winfrey Interview With Prince Harry and Meghan Markle   Full Interview
-📄 Metadata saved: audio_output\Oprah Winfrey Interview With Prince Harry and Meghan Markle   Full Interview.json
 INFO:Parallel Processing:✅ [Downloader Thread_2] Done: Yard Act - 100% Endurance
 📄 Metadata saved: audio_output\Yard Act - 100 Endurance.json
-INFO:Parallel Processing:✅ [Downloader Thread_3] Done: Chappell Roan - Pink Pony Club (Official Music Video)
-📄 Metadata saved: audio_output\Chappell Roan - Pink Pony Club Official Music Video.json
-INFO:Parallel Processing:✅ [Downloader Thread_0] Done: Liz Lawrence - None Of My Friends
+INFO:Parallel Processing:✅ [Downloader Thread_0] Done: Oprah Winfrey Interview With Prince Harry and Meghan Markle   Full Interview
+📄 Metadata saved: audio_output\Oprah Winfrey Interview With Prince Harry and Meghan Markle   Full Interview.json
+INFO:Parallel Processing:✅ [Downloader Thread_1] Done: Liz Lawrence - None Of My Friends
 📄 Metadata saved: audio_output\Liz Lawrence - None Of My Friends.json
+INFO:Parallel Processing:✅ [Downloader Thread_4] Done: Chappell Roan - Pink Pony Club (Official Music Video)
+📄 Metadata saved: audio_output\Chappell Roan - Pink Pony Club Official Music Video.json
 INFO:Parallel Processing:
 🎯 Download Summary:
    ✅ Successful: 10
    ❌ Failed: 0
-   ⌛ Time taken to download 10: 37.86 seconds
+   ⌛ Time taken to download 10: 44.59 seconds
 INFO:Data Processing:🧹 Cleaning DataFrame...
 INFO:Data Processing:🧹 Converted 'upload_date' to pandas Timestamp.
 INFO:Data Processing:🧹 Starting DataFrame validation...
