@@ -17,7 +17,7 @@ os.environ["SSL_CERT_FILE"] = certifi.where()
 
 # Logging setup
 logger = logging.getLogger("Parallel Processing")
-logging.basicConfig(filename=f"{LOGS_DIR}/logs", encoding="utf-8", level=logging.DEBUG)
+logging.basicConfig(filename=f"{LOGS_DIR}/download_logs.txt", encoding="utf-8", level=logging.DEBUG)
 output_lock = Lock()  # For thread-safe printing and logging
 
 

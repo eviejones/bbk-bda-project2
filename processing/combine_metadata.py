@@ -9,7 +9,7 @@ os.makedirs(METADATA_OUTPUT_DIR, exist_ok=True)
 os.makedirs(LOGS_DIR, exist_ok=True)
 
 logger = logging.getLogger("Data Processing")
-logging.basicConfig(filename=f"{LOGS_DIR}/logs", encoding="utf-8", level=logging.DEBUG)
+logging.basicConfig(filename=f"{LOGS_DIR}/download_logs.txt", encoding="utf-8", level=logging.DEBUG)
 
 COLUMNS = {
     "id": str,
@@ -58,7 +58,7 @@ def shorten_title(title: str) -> str:
     return title  # Return the original title if it's 5 words or less
 
 
-def validate_dataframe_schema(df: pd.DataFrame) -> bool:
+def validate_dataframe(df: pd.DataFrame) -> bool:
     """
     Validate DataFrame columns and types against expected schema.
 
@@ -135,7 +135,7 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     except Exception as e:
         log_and_print(f"🧹 Error converting 'upload_date': {e}", "error")
 
-    is_valid = validate_dataframe_schema(
+    is_valid = validate_dataframe(
         df
     )  # Validate schema before further processing
     # Drop rows with missing data, fill in missing counts and drop duplicates

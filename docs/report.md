@@ -31,8 +31,7 @@ The `video_urls.txt` file contains 10 YouTube urls, each on a separate line. Ins
 This list of urls is passed to either the `download_serial` function or the `download_parallel` function. The metadata output of these files is then combined using the `combine_metadata` function. This data is then analysed in the `data_analysis.ipynb` notebook. The output of this can be seen in `docs/data_analysis.pdf`.
 
 ### Download serial
-Using the `log_and_print` function which allows a message to be logged to the log file (using the logging module) and printed to the console, the function tells a user that it has begun.
-It marks a `start_time` using the `time` module so that we can see how long it takes and starts a counter for `total_sucessful` and `total_failed` downloads. 
+Using the `log_and_print` function which allows a message to be logged to the log file (using the logging module) and printed to the console, the function tells a user that it has begun. It marks a `start_time` using the `time` module so that we can see how long it takes and starts a counter for `total_sucessful` and `total_failed` downloads. 
 For each url in the `urls` list it tries to `download_youtube_audio_with_metadata`. 
 
 The `download_youtube_audio_with_metadata` takes the url, a set number of retries (if something fails it will try three times by default) and an initial delay (used for exponential backoff). It then passes this url to the `get_video_info` function.
@@ -65,18 +64,21 @@ With parallel processing, execution time is reduced but extra complexity is adde
 
 ### Combining metadata
 The `combine_metadata.py` has a list of required columns and their expected data types. For each JSON file in the `audio_output` folder it loads the data and adds it to a pandas dataframe. This dataframe is then cleaned:
+- It uses `validate_dataframe` to check that only the expected columns are present and they are all the expected data type. If they are not this is printed and logged. 
 - For numeric columns, N/As are filled with 0
 - Those with a duplicate id are dropped
 - `upload_date` is turned to a `pd.Timestamp` for better processing and visualisation e.g. if you were to create a time series. 
 - An additional column for a legible title is added. This is not a perfect title but works for most instances. The logic is that most YouTube videos have a title with a - or | in the name e.g. `Hound dog | Elvis Presley`. It splits the title at this point and reduces the title to the first five words. This is used for better visualisation.
-- It then uses `validate columns` to check that only the expected columns are present and they are all the expected data type or null. 
 
 This dataframe is then saved to csv. 
 
 # Part 3
+The file `analysis/data_analysis.ipynb` contains all the required analysis code in Python as well as Spark. It uses matplotlib for the visualisation. 
 
+As mentioned in the assignment file, there didn't seem to be much performance difference between pandas and spark. I use pandas in my daily work so prefer it but it was useful to learn the spark syntax for if I were to work with larger datasets. 
 
 
 # Reflection
+This was a useful exercise in how to use threads for I/O heavy tasks. It would be interesting to test how the current implementation works with a larger number of videos to download. I struggled a bit with implementing api retry logic in parallel processing, even though I am familiar with it for calling API serially. I also struggled with i
 
 
