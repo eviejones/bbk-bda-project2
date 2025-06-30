@@ -9,10 +9,10 @@ This project implements a pipeline for downloading YouTube video audio and extra
 
 ### File system
 Processing scripts:
-`extract_videos.py` contains common functions used by both the serial and parallel processing implementations.
-`serial_processing.py` contains all the functions unique to the serial processing implementation.
-`parallel_processing.py` contains all the functions unqiue to the parallel processing implementation.
-`combine_metadata.py` contains functions to combine the metadata into one csv. It contains validation and cleaning. 
+`processing/extract_videos.py` contains common functions used by both the serial and parallel processing implementations.
+`processing/serial_processing.py` contains all the functions unique to the serial processing implementation.
+`processing/parallel_processing.py` contains all the functions unqiue to the parallel processing implementation.
+`processing/combine_metadata.py` contains functions to combine the metadata into one csv. It contains validation and cleaning. 
 `main.py` brings all the main functions together. This is the main file to run. 
 
 Additional files:
@@ -22,6 +22,7 @@ Output files
 `logs` contains download `logs`.
 `audio_output` contains all the downloaded files and the downloaded json metadata. 
 `metadata_output` contains all of the metadata comined into a csv. 
+`analysis` contains the analysis for part 3. 
 
 ### The process
 The `video_urls.txt` file contains 10 YouTube urls, each on a separate line. Inside `main.py` this file is read using the `load_txt` function which reads each line as a new item in the list, with whitespace removed. 

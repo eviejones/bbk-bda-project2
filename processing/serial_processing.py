@@ -3,7 +3,7 @@ import os
 import json
 import logging
 import time
-from extract_videos import get_video_info, extract_metadata
+from .extract_videos import get_video_info, extract_metadata
 
 #TODO add in retry logic for failed downloads
 #TODO complete doc strings

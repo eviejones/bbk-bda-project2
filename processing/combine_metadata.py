@@ -17,7 +17,7 @@ COLUMNS = {
     "like_count": int,
     "tag_count": int,
     "upload_date": pd.Timestamp,  # Use pandas Timestamp for date handling
-    "year_uploaded": str,
+    "year_uploaded": int,
     "legible_title": str, # Added for shortened title
 }
 

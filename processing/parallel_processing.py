@@ -6,12 +6,11 @@ import threading
 from threading import Lock
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from extract_videos import get_video_info, extract_metadata
+from .extract_videos import get_video_info, extract_metadata
 
 
 OUTPUT_DIR = "audio_output"
 LOGS_DIR = "logs"
-MAX_WORKERS = 5
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(LOGS_DIR, exist_ok=True)
 os.environ["SSL_CERT_FILE"] = certifi.where()
@@ -54,7 +53,7 @@ def download_youtube_audio_with_metadata_parallel(url: str):
         log_and_print(f"❌ [{thread_id}] Failed to download: {url}\n   Error: {e}", "error")
         return {"status": "error", "url": url, "error": str(e)}
 
-def download_parallel(urls, max_workers=MAX_WORKERS):
+def download_parallel(urls: list[str], max_workers: int =5):
     """Download videos using ThreadPoolExecutor."""
     log_and_print(f"Starting parallel downloads with {max_workers} threads...", "info")
     results = []
@@ -67,7 +66,7 @@ def download_parallel(urls, max_workers=MAX_WORKERS):
             for url in urls
         }
         
-        # Process completed tasks as they finish
+        # Process completed tasks as they finish rather than waiting for all to finish
         for future in as_completed(future_to_url):
             url = future_to_url[future]
             try:

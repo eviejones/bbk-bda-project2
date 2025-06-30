@@ -43,7 +43,7 @@ def get_video_info(url: str, download: bool = True) -> dict:
 def extract_metadata(info: dict) -> dict:
     """Filter and return relevant metadata fields, including derived values."""
     upload_date = info.get("upload_date")
-    tags = info.get("tags") or []
+    tags = info.get("tags") or [] # Ensure it's a list, even if empty
 
     return {
         "id": info.get("id"),
@@ -55,9 +55,9 @@ def extract_metadata(info: dict) -> dict:
         "artist": info.get("artist"),
         "album": info.get("album"),
         "description": info.get("description"),
-        "tags": tags,  # Ensure it's a list
+        "tags": tags,  
         "duration_seconds": info.get("duration"),
-        "upload_date": upload_date,
+        "upload_date": info.get("upload_date"),
         "view_count": info.get("view_count"),
         "like_count": info.get("like_count"),
         "webpage_url": info.get("webpage_url"),
