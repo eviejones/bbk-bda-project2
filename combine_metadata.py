@@ -13,12 +13,12 @@ COLUMNS = {
     "artist": str,
     "tags": list,
     "duration_seconds": int,
-    "upload_date": pd.Timestamp,
     "view_count": int,
     "like_count": int,
     "tag_count": int,
+    "upload_date": pd.Timestamp,  # Use pandas Timestamp for date handling
     "year_uploaded": str,
-    "legible_title": str,
+    "legible_title": str, # Added for shortened title
 }
 
 def shorten_title(title: str) -> str:
@@ -33,9 +33,7 @@ def shorten_title(title: str) -> str:
 def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     df = df.loc[:, df.columns.intersection(COLUMNS.keys())]
     # Convert columns to expected types
-    df["year_uploaded"] = df['upload_date'].str[0:4]
     df["upload_date"] = pd.to_datetime(df["upload_date"], format="%Y%m%d", errors="coerce")
-    
     df = df.dropna(subset=['id', 'title'])  # Remove rows without id or title 
     df['view_count'] = df['view_count'].fillna(0)  # Fill missing counts with 0
     df['like_count'] = df['like_count'].fillna(0)
@@ -77,7 +75,8 @@ def validate_columns(df: pd.DataFrame):
                     print(f"Failed to convert column '{col}' at index {idx}: expected {expected_type.__name__}, got {type(value).__name__} (value: {value}). Conversion failed: {str(e)}. Setting to None.")
                     df.at[idx, col] = None
 
-def extract_metadata(directory: str) -> pd.DataFrame:
+def combine_metadata(directory: str) -> pd.DataFrame:
+    """Takes a directory containing JSON files and extracts metadata into a combined DataFrame. """
     json_files = glob.glob(f"{directory}/*.json")
 
     all_records = []
