@@ -3,10 +3,9 @@ import glob
 import json
 import os
 import logging
+from .config import METADATA_OUTPUT_DIR, LOGS_DIR
 
-OUTPUT_DIR = "metadata_output"
-LOGS_DIR = "logs"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+os.makedirs(METADATA_OUTPUT_DIR, exist_ok=True)
 os.makedirs(LOGS_DIR, exist_ok=True)
 
 
@@ -67,13 +66,13 @@ def validate_dataframe_schema(df: pd.DataFrame) -> bool:
     Returns:
         bool: True if valid, False if any issues found.
     """
-    log_and_print("Starting DataFrame validation...")
+    log_and_print("🧹 Starting DataFrame validation...")
     is_valid = True
 
     # Check for missing columns
     missing_cols = set(COLUMNS.keys()) - set(df.columns)
     if missing_cols:
-        log_and_print(f"Missing columns: {missing_cols}", "error")
+        log_and_print(f"❌ Missing columns: {missing_cols}", "error")
         is_valid = False
 
     # Check column types for existing columns
@@ -82,7 +81,7 @@ def validate_dataframe_schema(df: pd.DataFrame) -> bool:
             actual_dtype = df[col_name].dtype
             if expected_type is str and not pd.api.types.is_object_dtype(actual_dtype):
                 log_and_print(
-                    f"Column '{col_name}' should be string, but is {actual_dtype}",
+                    f"❌ Column '{col_name}' should be string, but is {actual_dtype}",
                     "error",
                 )
                 is_valid = False
@@ -90,7 +89,7 @@ def validate_dataframe_schema(df: pd.DataFrame) -> bool:
                 actual_dtype
             ):
                 log_and_print(
-                    f"Column '{col_name}' should be integer, but is {actual_dtype}",
+                    f"❌ Column '{col_name}' should be integer, but is {actual_dtype}",
                     "error",
                 )
                 is_valid = False
@@ -99,19 +98,19 @@ def validate_dataframe_schema(df: pd.DataFrame) -> bool:
                 and len(df[col_name].dropna()) > 0
                 and not isinstance(df[col_name].dropna().iloc[0], list)
             ):
-                log_and_print(f"Column '{col_name}' should contain lists", "error")
+                log_and_print(f"❌ Column '{col_name}' should contain lists", "error")
                 is_valid = False
             elif (
                 expected_type == pd.Timestamp
                 and not pd.api.types.is_datetime64_any_dtype(actual_dtype)
             ):
                 log_and_print(
-                    f"Column '{col_name}' should be datetime, but is {actual_dtype}",
+                    f"❌ Column '{col_name}' should be datetime, but is {actual_dtype}",
                     "error",
                 )
                 is_valid = False
 
-    log_and_print("Validation complete.")
+    log_and_print("✅ Validation complete.")
     return is_valid
 
 
@@ -124,7 +123,7 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     Returns:
         pd.DataFrame: The cleaned DataFrame with relevant columns and types.
     """
-    log_and_print("Cleaning DataFrame...")
+    log_and_print("🧹 Cleaning DataFrame...")
     # Select only the columns defined in COLUMNS
     df = df.loc[:, df.columns.intersection(COLUMNS.keys())]
 
@@ -133,18 +132,18 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
         df["upload_date"] = pd.to_datetime(
             df["upload_date"], format="%Y%m%d", errors="coerce"
         )
-        log_and_print("Converted 'upload_date' to pandas Timestamp.")
+        log_and_print("🧹 Converted 'upload_date' to pandas Timestamp.")
     except Exception as e:
-        log_and_print(f"Error converting 'upload_date': {e}", "error")
+        log_and_print(f"🧹 Error converting 'upload_date': {e}", "error")
 
     is_valid = validate_dataframe_schema(
         df
     )  # Validate schema before further processing
     # Drop rows with missing data, fill in missing counts and drop duplicates
     log_and_print(
-        "Dropping rows with missing 'id' or 'title' and filling missing counts..."
+        "🧹 Dropping rows with missing 'id' or 'title' and filling missing counts..."
     )
-    log_and_print("Filling missing counts with 0...")
+    log_and_print("🧹 Filling missing counts with 0...")
     df = df.dropna(subset=["id", "title"])  # Remove rows without id or title
     df["view_count"] = df["view_count"].fillna(0)
     df["like_count"] = df["like_count"].fillna(0)
@@ -183,7 +182,7 @@ def combine_metadata(directory: str) -> None:
     else:
         log_and_print("❌ DataFrame validation failed - check logs", "error")
 
-    df.to_csv(f"{OUTPUT_DIR}/combined_metadata.csv", index=False)
+    df.to_csv(f"{METADATA_OUTPUT_DIR}/combined_metadata.csv", index=False)
     log_and_print(
-        f"✅ Metadata extracted and saved to {OUTPUT_DIR}/combined_metadata.csv"
+        f"✅ Metadata extracted and saved to {METADATA_OUTPUT_DIR}/combined_metadata.csv"
     )

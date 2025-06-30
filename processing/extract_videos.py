@@ -1,10 +1,11 @@
 import yt_dlp
 import certifi
 import os
+from .config import OUTPUT_DIR
 
 #TODO check null things are handled properly, suspicuous about artist
 #TODO validate txt reading function
-OUTPUT_DIR = "audio_output"
+
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.environ["SSL_CERT_FILE"] = certifi.where()
 

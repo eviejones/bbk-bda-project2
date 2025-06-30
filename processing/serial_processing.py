@@ -4,11 +4,8 @@ import json
 import logging
 import time
 from .extract_videos import get_video_info, extract_metadata
+from .config import OUTPUT_DIR, LOGS_DIR
 
-#TODO add in retry logic for failed downloads
-#TODO complete doc strings
-OUTPUT_DIR = "audio_output"
-LOGS_DIR = "logs"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(LOGS_DIR, exist_ok=True)
 os.environ["SSL_CERT_FILE"] = certifi.where()
